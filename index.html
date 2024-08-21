@@ -1,287 +1,271 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateVersion='1.0.0' expr:class='data:blog.languageDirection' expr:dir='data:blog.languageDirection' expr:lang='data:blog.localeUnderscoreDelimited' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
-
-  <link crossorigin='anonymous' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css' integrity='sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==' referrerpolicy='no-referrer' rel='stylesheet'/>
-<link href='https://cdn.jsdelivr.net/gh/MaheshTechnicals/Quotify-Styler-Cdn/styles/style-10/app.css' rel='stylesheet'/>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Alphabet Practice</title>
+    <!-- Link to Noto Sans Devanagari Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+            user-select: none;
+            margin: 0;
+        }
+        .letter-container {
+            position: relative;
+            width: 90vw;
+            height: 90vw;
+            max-width: 500px;
+            max-height: 500px;
+            margin: 20px;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .letter {
+            position: absolute;
+            font-size: 70vw;
+            max-font-size: 450px;
+            color: black;
+            opacity: 0.0;
+            pointer-events: none;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .controls {
+            display: flex;
+            margin: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 5px;
+        }
+        .icon {
+            width: 52px;
+            height: 52px;
+            transition: transform 0.1s ease;
+        }
+        .icon_bimal {
+            width: 150px;
+            height: 100px;
+            transition: transform 0.1s ease;
+        }
+        .text-label {
+            margin-top: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            color: black;
+            text-decoration: none;
+        }
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .button-container a:active .icon,
+        .button-container a:active .icon_bimal {
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
   
+    <div class="separator" style="clear: both;">
+        <a href="https://youtube.com/@bimalsirg" style="display: block; padding: 1em 0; text-align: center;">
+            <img alt="" border="0" width="600" data-original-height="720" data-original-width="1280" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9zOE94GBoHcSOsDj0c5XhGL7LITXFz9kklDT1X4rRkBz6-IVWB2siOwB0N-J7vagmz1v4eBe4MqFyRCO4vqZF1PBpTIV4ktUEgkv97ELoR9_KSiONGfvhuMQCDDgD3TsLYy-9IO7qeTo1vUAy981J8OYkDsBZCoe4tNSGyORyrZWAAoXi7Tnf1zvgtow/s600/%E0%A4%95%20to%20%E0%A4%9C%E0%A5%8D%E0%A4%9E%20practice%20for%20kids%20Trace%20audio.jpg"/>
+        </a>
+    </div>
   
-  <!-- Js player css -->
-  <link href='https://vjs.zencdn.net/8.10.0/video-js.css' rel='stylesheet'/>
+    <h1>Interactive Hindi Alphabet Practice</h1>
+    <div class="letter-container">
+        <canvas id="canvas"></canvas>
+        <div id="letter" class="letter">क</div>
+    </div>
+    
+    <div class="controls">
+        <div class="button-container">
+            <a id="eraserLink">
+                <img src="https://shorturl.at/Ga6g5" alt="Eraser" class="icon">
+                <div class="text-label">Eraser</div>
+            </a>
+        </div>
+        <div class="button-container">
+            <a id="soundLink">
+                <img src="https://shorturl.at/7C3pX" alt="Sound" class="icon">
+                <div class="text-label">Sound</div>
+            </a>
+        </div>
+        <div class="button-container">
+            <a id="prevLetterLink">
+                <img src="https://shorturl.at/86IAZ" alt="Previous Letter" class="icon">
+                <div class="text-label">Back</div>
+            </a>
+        </div>
+        <div class="button-container">
+            <a id="nextLetterLink">
+                <img src="https://shorturl.at/AodkA" alt="Next Letter" class="icon">
+                <div class="text-label">Next</div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="colors">
+        <div class="color-option" style="background-color: red;" data-color="red"></div>
+        <div class="color-option" style="background-color: green;" data-color="green"></div>
+        <div class="color-option" style="background-color: blue;" data-color="blue"></div>
+        <div class="color-option" style="background-color: yellow;" data-color="yellow"></div>
+    </div>
+    
+    <div class="button-container">
+        <a id="learnAZLink">
+            <img src="https://shorturl.at/D0Hee" alt="Learn A-Z" class="icon_bimal">
+            <div class="text-label">Learn A-Z</div>
+        </a>
+    </div>
+    
+    <div class="button-container">
+        <a id="learnKaLink">
+            <img src="https://shorturl.at/NrEpu" alt="Learn अ-अ:" class="icon_bimal">
+            <div class="text-label">Learn अ-अ:</div>
+        </a>
+    </div>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const letterElem = document.getElementById('letter');
+        const eraserLink = document.getElementById('eraserLink');
+        const soundLink = document.getElementById('soundLink');
+        const prevLetterLink = document.getElementById('prevLetterLink');
+        const nextLetterLink = document.getElementById('nextLetterLink');
+        const learnAZLink = document.getElementById('learnAZLink');
+        const colorOptions = document.querySelectorAll('.color-option');
+        let currentColor = 'black';
+        let isDrawing = false;
+        let currentLetter = 'क';
+        
+        const alphabet = ['क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ', 'ट', 'ठ', 'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श', 'ष', 'स', 'ह', '\u0915\u094D\u0937', '\u0924\u094D\u0930', '\u091C\u094D\u091E'];
+        let currentIndex = 0;
+
+        function resizeCanvas() {
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+            drawLetterPath();
+        }
+
+        function drawLetterPath() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            ctx.font = `${canvas.width / 1.45}px 'Noto Sans Devanagari'`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.strokeText(currentLetter, canvas.width / 2, canvas.height / 2);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function startDrawing(event) {
+            isDrawing = true;
+            draw(event);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(event) {
+            if (!isDrawing) return;
+
+            event.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const x = (event.clientX || event.touches[0].clientX) - rect.left;
+            const y = (event.clientY || event.touches[0].clientY) - rect.top;
+
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = currentColor;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchmove', draw);
+
+        eraserLink.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawLetterPath();
+        });
+
+        soundLink.addEventListener('click', () => {
+            playLetterSound();
+        });
+
+        nextLetterLink.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % alphabet.length;
+            updateLetter();
+        });
+
+        prevLetterLink.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + alphabet.length) % alphabet.length;
+            updateLetter();
+        });
+
+        learnAZLink.addEventListener('click', () => {
+            window.location.href = 'https://bimalsirg.blogspot.com/2024/08/interactive-alphabet-practice-body_5.html';  // Replace with your desired URL
+        });
+        
+        learnKaLink.addEventListener('click', () => {
+            window.location.href = 'https://bimalsirg.blogspot.com/2024/08/interactive-alphabet-practice-body_67.html';  // Replace with your desired URL
+        });
+
+        colorOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                currentColor = option.dataset.color;
+            });
+        });
+
+        function updateLetter() {
+            currentLetter = alphabet[currentIndex];
+            letterElem.textContent = currentLetter;
+            drawLetterPath();
+            playLetterSound();
+        }
+
+        function playLetterSound() {
+            const fileIndex = alphabet.indexOf(currentLetter) + 1;
+            const audioUrl = `https://raw.githubusercontent.com/bimalsirg/sounda/main/${fileIndex}.mp3`;
+            const audio = new Audio(audioUrl);
+            audio.play();
+        }
+
+        updateLetter();
+    </script>
+</body>
+                  </html>
   
-  
-  <head>
-    
-    <link href='https://bimalsirg.blogspot.com' rel='canonical'/>
-    
-   
-    
-    <title>
-
-        <b:if cond='data:blog.pageType == &quot;index&quot;'>
-
-            <data:blog.pageTitle/>
-
-        <b:else/>
-
-            <b:if cond='data:blog.pageType != &quot;error_page&quot;'>
-
-                <data:blog.pageName/> - <data:blog.title/>
-
-            <b:else/>
-
-                ERROR 404 - <data:blog.title/> 
-
-            </b:if>
-
-        </b:if>
-
-    </title>
-
-    <!-- Description and Keywords (start) -->
-
-    <b:if cond='data:blog.pageType == &quot;index&quot;'>
-
-    <meta content='Vedanta excel in mathematics solution of class 9 and 10, optional and compulsory Maths, science,gk tricks' name='description'/>
-
-    </b:if>
-
-    <meta content='Class 9 and 10 Vedanta maths solution' name='keywords'/>
-
-    <!-- Description and Keywords (end) -->
-
-    <b:if cond='data:blog.pageType == &quot;item&quot;'>
-
-        <meta expr:content='data:blog.pageName' property='og:title'/>
-
-        <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
-
-        <meta content='article' property='og:type'/>
-
-    </b:if>
-
-    <b:if cond='data:blog.postImageUrl'>
-
-        <meta expr:content='data:blog.postImageUrl' property='og:image'/>
-
-    <b:else/>
-
-    <b:if cond='data:blog.postImageThumbnailUrl'>
-
-        <meta expr:content='data:blog.postImageThumbnailUrl' property='og:image'/>
-
-    </b:if></b:if>
-
-    <b:if cond='data:blog.metaDescription != &quot;&quot;'>
-
-        <meta expr:content='data:blog.metaDescription' name='og:description'/>
-
-    </b:if>
-
-    <meta expr:content='data:blog.title' property='og:site_name'/>
-
-    <meta expr:content='data:blog.homepageUrl' name='twitter:domain'/>
-
-    <meta expr:content='data:blog.pageName' name='twitter:title'/>
-
-    <b:if cond='data:blog.postImageUrl'>
-
-      <meta content='summary_large_image' name='twitter:card'/>
-
-      <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
-
-    <b:else/>
-
-      <meta content='summary' name='twitter:card'/>
-
-      <b:if cond='data:blog.postImageThumbnailUrl'>
-
-        <meta expr:content='data:blog.postImageThumbnailUrl' name='twitter:image'/> 
-
-      </b:if>
-
-    </b:if>
-
-    <meta expr:content='data:blog.pageName' name='twitter:title'/>
-
-    <b:if cond='data:blog.metaDescription'>
-
-      <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
-
-    </b:if> 
-
-<b:if cond='data:view.isHomepage'>
-
- <script type='application/ld+json'>{&quot;@context&quot;:&quot;http://schema.org&quot;,&quot;@type&quot;:&quot;WebSite&quot;,&quot;name&quot;:&quot;<data:view.title.escaped/>&quot;,&quot;url&quot;:&quot;<data:view.url.canonical/>&quot;,&quot;potentialAction&quot;:{&quot;@type&quot;:&quot;SearchAction&quot;,&quot;target&quot;:&quot;<data:view.url.canonical/>search?q={search_term_string}&quot;,&quot;query-input&quot;:&quot;required name=search_term_string&quot;}}</script>
-
-    </b:if>
-    
-    
-    
-    
-    
-    
-<b:include name='theme-head'/>
-<b:if cond='!data:view.isLayoutMode'>
-<!-- Theme Style CSS -->
-<b:skin version='1.0.0'><![CDATA[/*
------------------------------------------------
-Blogger Template Style
-Name: Bimal Sir G 
-Version:      
-Author:       
-Author Url:   https://youtube.com/@bimalsirg
-Terms of Use: :
------------------------------------------------*/
-
-/*
-<!-- Variable definitions -->
-<Variable name="keycolor" description="Main Color" type="color" default="#DC191B" value="#DC191B"/>
-<Group description="Theme Options" selector="body">
-    <Variable name="sidebar" description="Left Sidebar" type="length" default="0px" min="0px" max="1px" value="0px"/>
-    <Variable name="fixedmenu" description="Fixed Menu" type="length" default="1px" min="0px" max="1px" value="1px"/>
-    <Variable name="fixedsidebar" description="Fixed Sidebar" type="length" default="1px" min="0px" max="1px" value="1px"/>
-</Group>
-<Group description="Theme Widths" selector="body">
-    <Variable name="boxed" description="Boxed Layout" type="length" default="0px" min="0px" max="1px" value="0px"/>
-    <Variable name="row.width" description="Container Width" type="length" default="970px" min="970px" max="1094px" value="970px"/>
-    <Variable name="sidebar.width" description="Sidebar Width" type="length" default="300px" min="250px" max="336px" value="300px"/>
-</Group>
-<Group description="Theme Fonts" selector="body">
-    <Variable name="main.font" description="Site Font" type="font" family="'Poppins', sans-serif" default="normal 400 14px $(family)"  value="normal 400 14px $(family)"/>
-    <Variable name="menu.font" description="Menu Font" type="font" family="'Poppins', sans-serif" default="normal 400 14px $(family)"  value="normal 400 14px $(family)"/>
-    <Variable name="title.font" description="Title Font" type="font" family="'Poppins', sans-serif" default="normal 400 14px $(family)"  value="normal 400 14px $(family)"/>
-    <Variable name="meta.font" description="Meta Font" type="font" family="'Poppins', sans-serif" default="normal 400 14px $(family)"  value="normal 400 14px $(family)"/>
-    <Variable name="text.font" description="Text Font" type="font" family="'Poppins', sans-serif" default="normal 400 14px $(family)"  value="normal 400 14px $(family)"/>
-</Group>
-<Group description="Background" selector="body">
-    <Variable name="body.background.color" description="Body Background" type="color" default="#F7F7F7"  value="#F7F7F7"/>
-    <Variable name="body.background" description="Background" type="background" color="$(body.background.color)" default="$(color) url() repeat fixed top left" value="$(color) url() repeat fixed top left"/>
-    <Variable name="outer.bg" description="Outer Wrapper Background" type="color" default="#FFFFFF"  value="#FFFFFF"/>
-    <Variable name="background.cover" description="Background Image Size Cover" type="length" default="0px" min="0px" max="1px" value="0px"/>
-</Group>
-<Group description="Theme Colors" selector="body">
-    <Variable name="main.color" description="Theme Color" type="color" default="#DC191B" value="#DC191B"/>
-    <Variable name="title.color" description="Title Color" type="color" default="#333333" value="#333333"/>
-    <Variable name="title.hover.color" description="Title Hover Color" type="color" default="$(main.color)" value="#DC191B"/>
-    <Variable name="meta.color" description="Meta Color" type="color" default="#A9B4BA" value="#A9B4BA"/>
-    <Variable name="text.color" description="Text Color" type="color" default="#77777A"  value="#77777A"/>
-</Group>
-<Group description="Site Header" selector=".header-items">
-    <Variable name="header.bg" description="Header Background" type="color" default="#0F1618" value="#0F1618"/>
-    <Variable name="header.color" description="Header Color" type="color" default="#F4F4F4" value="#F4F4F4"/>
-    <Variable name="header.hover.color" description="Header Hover Color" type="color" default="$(main.color)" value="#DC191B"/>
-    <Variable name="header.text.color" description="Social Text Color" type="color" default="#C7C7C7" value="#C7C7C7"/>
-</Group>
-<Group description="Main Menu" selector=".main-nav-items">
-    <Variable name="menu.bg" description="Main Menu Background" type="color" default="$(main.color)" value="#DC191B"/>
-    <Variable name="menu.color" description="Main Menu Color" type="color" default="#FFFFFF" value="#FFFFFF"/>
-    <Variable name="menu.link.active.bg" description="Link Active Background" type="color" default="rgba(255,255,255,0.1)" value="rgba(255,255,255,0.1)"/>
-    <Variable name="menu.link.hover.bg" description="Link Hover Background" type="color" default="rgba(255,255,255,0.1)" value="rgba(255,255,255,0.1)"/>
-    <Variable name="menu.link.hover.color" description="Link Hover Color" type="color" default="#FFFFFF" value="#FFFFFF"/>
-</Group>
-<Group description="Sub Menu" selector=".main-nav-items">
-    <Variable name="submenu.bg" description="SubMenu Background" type="color" default="#0F1618" value="#0F1618"/>
-    <Variable name="submenu.color" description="SubMenu Color" type="color" default="#FFFFFF" value="#FFFFFF"/>
-    <Variable name="submenu.hover.color" description="SubMenu Hover Color" type="color" default="$(main.color)" value="#DC191B"/>
-</Group>
-<Group description="Mega Menu" selector=".main-nav-items">
-    <Variable name="megamenu.bg" description="MegaMenu Background" type="color" default="#0F1618" value="#0F1618"/>
-    <Variable name="megamenu.color" description="MegaMenu Color" type="color" default="#FFFFFF" value="#FFFFFF"/>
-    <Variable name="megamenu.hover.color" description="MegaMenu Hover Color" type="color" default="$(main.color)" value="#DC191B"/>
-</Group>
-<Group description="Mobile Menu">
-    <Variable name="mmenu.bg" description="Mobile Menu Background" type="color" default="#161D1F" value="#161D1F"/>
-    <Variable name="mmenu.color" description="Mobile Menu Color" type="color" default="#FFFFFF" value="#FFFFFF"/>
-    <Variable name="mmenu.hover.color" description="Mobile Menu Hover Color" type="color" default="$(main.color)" value="#DC191B"/>
-</Group>
-<Group description="Header ADS" selector="#header-ads-wrap">
-    <Variable name="headerad.onpost" description="Show on Post Page" type="length" default="1px" min="0px" max="1px" value="1px"/>
-</Group>
-<Group description="Post Styles" select="#main">
-    <Variable name="post.title.color" description="Post Title Color" type="color" default="$(title.color)" value="#333333"/>
-    <Variable name="post.title.hover.color" description="Post Title Hover Color" type="color" default="$(title.hover.color)" value="#DC191B"/>
-    <Variable name="tag.bg" description="Tag Background" type="color" default="$(main.color)"  value="#DC191B"/>
-    <Variable name="tag.color" description="Tag Color" type="color" default="#FFFFFF"  value="#FFFFFF"/>
-</Group>
-<Group description="Post Page Styles" select="#main">
-    <Variable name="post.text.color" description="Post Text Color" type="color" default="$(text.color)" value="#77777A"/>
-    <Variable name="itempost.title.size" description="Post Title Font Size" type="length" default="33px" min="20px" max="50px" value="33px"/>
-    <Variable name="itempost.content.size" description="Post Text Font Size" type="length" default="14px" min="12px" max="20px" value="14px"/>
-</Group>
-<Group description="Post Page Options" select="#main">
-    <Variable name="breadcrumb" description="Post Breadcrumbs" type="length" default="1px" min="0px" max="1px" value="1px"/>
-    <Variable name="cmm.count" description="Comments Count" type="length" default="1px" min="0px" max="1px" value="1px"/>
-    <Variable name="postnav" description="Post Navigation" type="length" default="1px" min="0px" max="1px" value="1px"/>
-</Group>
-<Group description="Theme Widgets" select="#sidebar">
-    <Variable name="wtitle.color" description="Widget Title Color" type="color" default="$(title.color)" value="#333333"/>
-    <Variable name="wtitledot.bg" description="Widget Title Dot" type="color" default="$(main.color)" value="#DC191B"/>
-</Group>
-<Group description="Footer ADS" selector="#footer-ads-wrap">
-    <Variable name="footerad.onpost" description="Show on Post Page" type="length" default="1px" min="0px" max="1px" value="1px"/>
-</Group>
-<Group description="Theme Footer" selector="#gameify-free-about-section">
-    <Variable name="footer.bg" description="Footer Background" type="color" default="#0F1618" value="#0F1618"/>
-    <Variable name="footer.color" description="Footer Color" type="color" default="#FFFFFF" value="#FFFFFF"/>
-    <Variable name="footer.text.color" description="Footer Text Color" type="color" default="#AAAAAA" value="#AAAAAA"/>
-    <Variable name="footer.hover.color" description="Footer Links Hover Color" type="color" default="$(main.color)" value="#DC191B"/>
-</Group>
-<Group description="Footer Bar" selector=".footerbar">
-    <Variable name="footerbar.bg" description="Footer Bar Background" type="color" default="#0C1213" value="#0C1213"/>
-    <Variable name="footerbar.color" description="Footer Bar Color" type="color" default="#FFFFFF" value="#FFFFFF"/>
-    <Variable name="footerbar.hover.color" description="Footer Bar Hover Color" type="color" default="$(main.color)" value="#DC191B"/>
-</Group>
-<Group description="Cookie Consent" selector="#cookie-ify">
-    <Variable name="cookie.bg" description="Cookie Background" type="color" default="#0F1618" value="#0F1618"/>
-    <Variable name="cookie.color" description="Cookie Text Color" type="color" default="#AAAAAA" value="#AAAAAA"/>
-</Group>
-<Group description="Theme Buttons">
-    <Variable name="button.bg" description="Button Background" type="color" default="$(main.color)" value="#DC191B"/>
-    <Variable name="button.color" description="Button Color" type="color" default="#FFFFFF" value="#FFFFFF"/>
-    <Variable name="button.hover.bg" description="Button Hover Background" type="color" default="#E03032" value="#E03032"/>
-    <Variable name="button.hover.color" description="Button Hover Color" type="color" default="#FFFFFF" value="#FFFFFF"/>
-</Group>
-<Group description="Reset (Theme Fonts)">
-    <!-- Site Font -->
-    <Variable name="mainfont.medium" description="Main Font Medium" type="font" default="normal 500 14px $(main.font.family)" value="normal 500 14px $(family)"/>
-    <Variable name="mainfont.semibold" description="Main Font SemiBold" type="font" default="normal 600 14px $(main.font.family)" value="normal 600 14px $(family)"/>
-    <Variable name="mainfont.bold" description="Main Font Bold" type="font" default="normal 700 14px $(main.font.family)" value="normal 700 14px $(family)"/>
-    <Variable name="mainfont.italic" description="Main Font Italic" type="font" default="italic 400 14px $(main.font.family)" value="italic 400 14px $(family)"/>
-    <Variable name="mainfont.mediumitalic" description="Main Font Medium Italic" type="font" default="italic 500 14px $(main.font.family)" value="italic 500 14px $(family)"/>
-    <Variable name="mainfont.semibolditalic" description="Main Font SemiBold Italic" type="font" default="italic 600 14px $(main.font.family)" value="italic 600 14px $(family)"/>
-    <Variable name="mainfont.bolditalic" description="Main Font Bold Italic" type="font" default="italic 700 14px $(main.font.family)" value="italic 700 14px $(family)"/>
-    <!-- Menu Font -->
-    <Variable name="menufont.medium" description="Menu Font Medium" type="font" default="normal 500 14px $(menu.font.family)" value="normal 500 14px $(family)"/>
-    <Variable name="menufont.semibold" description="Menu Font SemiBold" type="font" default="normal 600 14px $(menu.font.family)" value="normal 600 14px $(family)"/>
-    <Variable name="menufont.bold" description="Menu Font Bold" type="font" default="normal 700 14px $(menu.font.family)" value="normal 700 14px $(family)"/>
-    <Variable name="menufont.italic" description="Menu Font Italic" type="font" default="italic 400 14px $(menu.font.family)" value="italic 400 14px $(family)"/>
-    <Variable name="menufont.mediumitalic" description="Menu Font Medium Italic" type="font" default="italic 500 14px $(menu.font.family)" value="italic 500 14px $(family)"/>
-    <Variable name="menufont.semibolditalic" description="Menu Font SemiBold Italic" type="font" default="italic 600 14px $(menu.font.family)" value="italic 600 14px $(family)"/>
-    <Variable name="menufont.bolditalic" description="Menu Font Bold Italic" type="font" default="italic 700 14px $(menu.font.family)" value="italic 700 14px $(family)"/>
-    <!-- Title Font -->
-    <Variable name="titlefont.medium" description="Title Font Medium" type="font" default="normal 500 14px $(title.font.family)" value="normal 500 14px $(family)"/>
-    <Variable name="titlefont.semibold" description="Title Font SemiBold" type="font" default="normal 600 14px $(title.font.family)" value="normal 600 14px $(family)"/>
-    <Variable name="titlefont.bold" description="Title Font Bold" type="font" default="normal 700 14px $(title.font.family)" value="normal 700 14px $(family)"/>
-    <Variable name="titlefont.italic" description="Title Font Italic" type="font" default="italic 400 14px $(title.font.family)" value="italic 400 14px $(family)"/>
-    <Variable name="titlefont.mediumitalic" description="Title Font Medium Italic" type="font" default="italic 500 14px $(title.font.family)" value="italic 500 14px $(family)"/>
-    <Variable name="titlefont.semibolditalic" description="Title Font SemiBold Italic" type="font" default="italic 600 14px $(title.font.family)" value="italic 600 14px $(family)"/>
-    <Variable name="titlefont.bolditalic" description="Title Font Bold Italic" type="font" default="italic 700 14px $(title.font.family)" value="italic 700 14px $(family)"/>
-    <!-- Meta Font -->
-    <Variable name="metafont.italic" description="Meta Font Italic" type="font" default="italic 400 14px $(meta.font.family)" value="italic 400 14px $(family)"/>
-    <Variable name="metafont.medium" description="Meta Font Medium" type="font" default="normal 500 14px $(meta.font.family)" value="normal 500 14px $(family)"/>
-    <Variable name="metafont.mediumitalic" description="Meta Font Medium Italic" type="font" default="italic 500 14px $(meta.font.family)" value="italic 500 14px $(family)"/>
-    <!-- Text Font -->
-    <Variable name="textfont.medium" description="Text Font Medium" type="font" default="normal 500 14px $(text.font.family)" value="normal 500 14px $(family)"/>
-    <Variable name="textfont.semibold" description="Text Font SemiBold" type="font" default="normal 600 14px $(text.font.family)" value="normal 600 14px $(family)"/>
-    <Variable name="textfont.bold" description="Text Font Bold" type="font" default="normal 700 14px $(text.font.family)" value="normal 700 14px $(family)"/>
-    <Variable name="textfont.italic" description="Text Font Italic" type="font" default="italic 400 14px $(text.font.family)" value="italic 400 14px $(family)"/>
-    <Variable name="textfont.mediumitalic" description="Text Font Medium Italic" type="font" default="italic 500 14px $(text.font.family)" value="italic 500 14px $(family)"/>
-    <Variable name="textfont.semibolditalic" description="Text Font SemiBold Italic" type="font" default="italic 600 14px $(text.font.family)" value="italic 600 14px $(family)"/>
-    <Variable name="textfont.bolditalic" description="Text Font Bold Italic" type="font" default="italic 700 14px $(text.font.family)" value="italic 700 14px $(family)"/>
-</Group>
-*/
-
-/*-- Google Fonts --*/
-@font-face{font-family:'Poppins';font-style:italic;font-weight:400;font-display:swap;src:local('Poppins Italic'),local(Poppins-Italic),url(https://fonts.gstatic.com/s/poppins/v12/pxiGyp8kv8JHgFVrJJLucXtAKPY.woff2) format("woff2");unicode-range:U+0900-097F,U+1CD0-1CF6,U+1CF8-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FB}
-@font-face{font-family:'Poppins';font-style:italic;font-weight:400;font-display:swap;src:local('Poppins Italic'),local(Poppins-Italic),url(https://fonts.gstatic.com/s/poppins/v12/pxiGyp8kv8JHgFVrJJLufntAKPY.woff2) format("woff2");unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,
