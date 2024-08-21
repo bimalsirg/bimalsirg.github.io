@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Alphabet Practice</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            user-select: none;
+            margin: 0;
+        }
+        .letter-container {
+            position: relative;
+            width: 90vw;
+            height: 90vw;
+            max-width: 500px;
+            max-height: 500px;
+            margin: 20px;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .letter {
+            position: absolute;
+            font-size: 80vw;
+            max-font-size: 450px;
+            color: black;
+            opacity: 0.0;
+            pointer-events: none;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .controls {
+            display: flex;
+            margin: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 5px;
+        }
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .icon {
+            width: 52px;
+            height: 52px;
+        }
+        .control-text {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 5px;
+        }
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .icon_bimal {
+            width: 80px;
+            height: 100px;
+            transition: transform 0.1s ease;
+            flex-direction: row;
+            align-items: center;
+        }
+        .control-text {
+            transition: transform 0.1s ease;
+        }
+        .button-container a:active .icon,
+        .button-container a:active .icon_bimal {
+            transform: scale(0.9);
+        }
+        .button-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin: 0px;
+        }
+        .icon {
+            width: 52px;
+            height: 52px;
+            transition: transform 0.1s ease;
+        }
+        .text-label {
+            margin-top: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+  <div class="separator" style="clear: both;"><a href="https://youtube.com/@bimalsirg" style="display: block; padding: 1em 0; text-align: center; "><img alt="" border="0" width="600" data-original-height="720" data-original-width="1280" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgU7F-dvtHbuugYwCnix32eS91btK_WCE7N8odlmfCgArJQxp3X446fGQX59JX-dkx4jCbXBCFTN03AphY4nGBrT0TUetH3bowUn0AueK-E4ViD3qbTOUs25tafL_C77Q6y8mrXHsfEKckp5MTI4TNkWePrOGk3Jc9aiBih4iDLOOAP5f60uKUynRxkD7s/s600/A%20to%20Z%20practice%20for%20kids%20Trace%20audio.jpg"/></a></div>
+  
+  
+  
+    <h1>Alphabet Practice</h1>
+    <div class="letter-container">
+        <canvas id="canvas"></canvas>
+        <div id="letter" class="letter">A</div>
+    </div>
+    <div class="controls">
+        <div class="control-item">
+            <button id="eraser">
+                <img src="https://shorturl.at/Ga6g5" alt="Eraser" class="icon">
+                <div class="control-text">Eraser</div>
+            </button>
+        </div>
+        <div class="control-item">
+            <button id="sound">
+                <img src="https://shorturl.at/7C3pX" alt="Sound" class="icon">
+                <div class="control-text">Sound</div>
+            </button>
+        </div>
+        <div class="control-item">
+            <button id="toggleCase">
+                <img src="https://shorturl.at/RvhWl" alt="Toggle Case" class="icon">
+                <div class="control-text">A/a</div>
+            </button>
+        </div>
+        <div class="control-item">
+            <button id="prevLetter">
+                <img src="https://shorturl.at/86IAZ" alt="Previous Letter" class="icon">
+                <div class="control-text">Back</div>
+            </button>
+        </div>
+        <div class="control-item">
+            <button id="nextLetter">
+                <img src="https://shorturl.at/AodkA" alt="Next Letter" class="icon">
+                <div class="control-text">Next</div>
+            </button>
+        </div>
+    </div>
+    <div class="colors">
+        <div class="color-option" style="background-color: red;" data-color="red"></div>
+        <div class="color-option" style="background-color: green;" data-color="green"></div>
+        <div class="color-option" style="background-color: blue;" data-color="blue"></div>
+        <div class="color-option" style="background-color: yellow;" data-color="yellow"></div>
+    </div>
+
+    <div class="button-container">
+        <a id="learnAZLink">
+            <img src="https://shorturl.at/NrEpu" alt="Learn अ-अ:" class="icon_bimal">
+            <div class="text-label">Learn अ-अ:</div>
+        </a>
+    </div>
+    <div class="button-container">
+        <a id="learnKaLink">
+            <img src="https://shorturl.at/j3trK" alt="Learn क-ज्ञ" class="icon_bimal">
+            <div class="text-label">Learn क-ज्ञ</div>
+        </a>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const letterElem = document.getElementById('letter');
+        const eraserBtn = document.getElementById('eraser');
+        const soundBtn = document.getElementById('sound');
+        const toggleCaseBtn = document.getElementById('toggleCase');
+        const prevLetterBtn = document.getElementById('prevLetter');
+        const nextLetterBtn = document.getElementById('nextLetter');
+        const colorOptions = document.querySelectorAll('.color-option');
+        let currentColor = 'black';
+        let isDrawing = false;
+        let isUpperCase = true;
+        let currentLetter = 'A';
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let currentIndex = 0;
+
+        function resizeCanvas() {
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+            drawLetterPath();
+        }
+
+        function drawLetterPath() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            ctx.font = `${canvas.width / 1.25}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.strokeText(currentLetter, canvas.width / 2, canvas.height / 2);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function startDrawing(event) {
+            isDrawing = true;
+            draw(event);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(event) {
+            if (!isDrawing) return;
+
+            event.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const x = (event.clientX || event.touches[0].clientX) - rect.left;
+            const y = (event.clientY || event.touches[0].clientY) - rect.top;
+
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = currentColor;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchmove', draw);
+
+        eraserBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawLetterPath();
+        });
+
+        soundBtn.addEventListener('click', playSound);
+
+        toggleCaseBtn.addEventListener('click', () => {
+            isUpperCase = !isUpperCase;
+            updateLetter();
+            playSound();
+        });
+
+        nextLetterBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % alphabet.length;
+            updateLetter();
+            playSound();
+        });
+
+        prevLetterBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + alphabet.length) % alphabet.length;
+            updateLetter();
+            playSound();
+        });
+
+        colorOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                currentColor = option.dataset.color;
+            });
+        });
+
+        function playSound() {
+            const audioUrl = `https://github.com/bimalsirg/sound/raw/main/${currentLetter.toUpperCase()}.mp3`;
+            const audio = new Audio(audioUrl);
+            audio.play();
+        }
+
+        function updateLetter() {
+            currentLetter = isUpperCase ? alphabet[currentIndex] : alphabet[currentIndex].toLowerCase();
+            letterElem.textContent = currentLetter;
+            drawLetterPath();
+        }
+
+        updateLetter();
+
+        document.getElementById('learnAZLink').addEventListener('click', () => {
+            window.location.href = 'https://bimalsirg.blogspot.com/2024/08/interactive-alphabet-practice-body_67.html';  // Replace with your desired URL
+        });
+
+        document.getElementById('learnKaLink').addEventListener('click', () => {
+            window.location.href = 'https://bimalsirg.blogspot.com/2024/08/interactive-alphabet-practice-body_74.html';  // Replace with your desired URL
+        });
+    </script>
+</body>
+  </html>
+  
