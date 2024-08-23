@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive क - ज्ञ Practice</title>
+    <!-- Link to Noto Sans Devanagari Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+            user-select: none;
+            margin: 0;
+        }
+        .letter-container {
+            position: relative;
+            width: 90vw;
+            height: 90vw;
+            max-width: 500px;
+            max-height: 500px;
+            margin: 20px;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .letter {
+            position: absolute;
+            font-size: 70vw;
+            max-font-size: 450px;
+            color: black;
+            opacity: 0.0;
+            pointer-events: none;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .controls {
+            display: flex;
+            margin: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 5px;
+        }
+        .icon {
+            width: 52px;
+            height: 52px;
+            transition: transform 0.1s ease;
+        }
+        .icon_bimal {
+            width: 150px;
+            height: 150px;
+            transition: transform 0.1s ease;
+        }
+        .text-label {
+            margin-top: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            color: black;
+            text-decoration: none;
+        }
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-block;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        
+        
+        .color-option:active {
+            transform: translateY(4px);
+            box-shadow: 0 10px deeppink;
+        }
+        
+        
+        }
+        .button-container a:active .icon,
+        .button-container a:active .icon_bimal {
+            transform: scale(0.9);
+        }
+        
+        
+        .button:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px #0056b3;
+        }
+        .button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            
+        }
+        .icon {
+            width: 62px;
+            height: 62px;
+            transition: transform 0.1s
+        }
+        
+        .icon:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px #0056b3;
+        }
+    </style>
+</head>
+<body>
+  
+   
+  
+    <h1>Kids क - ज्ञ Practice</h1>
+    <div class="letter-container">
+        <canvas id="canvas"></canvas>
+        <div id="letter" class="letter">क</div>
+    </div>
+    
+    <div class="controls">
+        <div class="button-container">
+            <a id="eraserLink">
+                <img src="image/eraser.png" alt="Eraser" class="icon">
+                <div class="text-label">Eraser</div>
+            </a>
+        </div>
+        <div class="button-container">
+            <a id="soundLink">
+                <img src="image/mic.png" alt="Sound" class="icon">
+                <div class="text-label">Sound</div>
+            </a>
+        </div>
+        <div class="button-container">
+            <a id="prevLetterLink">
+                <img src="image/back.png" alt="Previous Letter" class="icon">
+                <div class="text-label">Back</div>
+            </a>
+        </div>
+        <div class="button-container">
+            <a id="nextLetterLink">
+                <img src="image/next.png" alt="Next Letter" class="icon">
+                <div class="text-label">Next</div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="colors">
+        <div class="color-option" style="background-color: red;" data-color="red"></div>
+        <div class="color-option" style="background-color: green;" data-color="green"></div>
+        <div class="color-option" style="background-color: blue;" data-color="blue"></div>
+        <div class="color-option" style="background-color: yellow;" data-color="yellow"></div>
+    </div>
+    
+    <div class="button-container">
+        <a id="learnAZLink">
+            <img src="image/a-z.png" alt="Learn A-Z" class="icon_bimal">
+            <div class="text-label">Learn A-Z</div>
+        </a>
+    </div>
+    
+    <div class="button-container">
+        <a id="learnKaLink">
+            <img src="image/a-ah.png" alt="Learn अ-अ:" class="icon_bimal">
+            <div class="text-label">Learn अ-अ:</div>
+        </a>
+    </div>
+    
+    
+    
+     <div class="separator" style="clear: both;">
+        <a href="https://youtube.com/@bimalsirg" style="display: block; padding: 1em 0; text-align: center;">
+            <img alt="" border="0" width="320" data-original-height="720" data-original-width="1280" src="image/क to ज्ञ practice for kids Trace audio.jpg"/>
+        </a>
+    </div>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const letterElem = document.getElementById('letter');
+        const eraserLink = document.getElementById('eraserLink');
+        const soundLink = document.getElementById('soundLink');
+        const prevLetterLink = document.getElementById('prevLetterLink');
+        const nextLetterLink = document.getElementById('nextLetterLink');
+        const learnAZLink = document.getElementById('learnAZLink');
+        const colorOptions = document.querySelectorAll('.color-option');
+        let currentColor = 'black';
+        let isDrawing = false;
+        let currentLetter = 'क';
+        
+        const alphabet = ['क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ', 'ट', 'ठ', 'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श', 'ष', 'स', 'ह', '\u0915\u094D\u0937', '\u0924\u094D\u0930', '\u091C\u094D\u091E'];
+        let currentIndex = 0;
+
+        function resizeCanvas() {
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+            drawLetterPath();
+        }
+
+        function drawLetterPath() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            ctx.font = `${canvas.width / 1.45}px 'Noto Sans Devanagari'`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.strokeText(currentLetter, canvas.width / 2, canvas.height / 2);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function startDrawing(event) {
+            isDrawing = true;
+            draw(event);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(event) {
+            if (!isDrawing) return;
+
+            event.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const x = (event.clientX || event.touches[0].clientX) - rect.left;
+            const y = (event.clientY || event.touches[0].clientY) - rect.top;
+
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = currentColor;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchmove', draw);
+
+        eraserLink.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawLetterPath();
+        });
+
+        soundLink.addEventListener('click', () => {
+            playLetterSound();
+        });
+
+        nextLetterLink.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % alphabet.length;
+            updateLetter();
+        });
+
+        prevLetterLink.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + alphabet.length) % alphabet.length;
+            updateLetter();
+        });
+
+        learnAZLink.addEventListener('click', () => {
+            window.location.href = 'index.html';  // Replace with your desired URL
+        });
+        
+        learnKaLink.addEventListener('click', () => {
+            window.location.href = 'indexaah.html';  // Replace with your desired URL
+        });
+
+        colorOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                currentColor = option.dataset.color;
+            });
+        });
+
+        function updateLetter() {
+            currentLetter = alphabet[currentIndex];
+            letterElem.textContent = currentLetter;
+            drawLetterPath();
+            playLetterSound();
+        }
+
+        function playLetterSound() {
+            const fileIndex = alphabet.indexOf(currentLetter) + 1;
+            const audioUrl = `audiokagya/${fileIndex}.mp3`;
+            const audio = new Audio(audioUrl);
+            audio.play();
+        }
+
+        updateLetter();
+    </script>
+</body>
+</html>
