@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Page with Firebase</title>
+    <style>
+        /* Same CSS from the previous code */
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .app-container {
+            width: 100%;
+            margin: 10px auto;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .app-header {
+            display: flex;
+            align-items: center;
+        }
+        .app-icon {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8AgdTLZyFh6ejdcXgy3E42FQBGuXuXPOnlGTV71T_dom8s2PLCWKFYXYIwNlRqJRNftxijC9EoBN5qVNFJUO9zz3EPZBgRwrDbDkCTlTymUoLXDa5WsJ7zsNp1qEjyilUu-OWZulhxK8WqsejOFIl0d5ffdF73vJYNtnGQhFTNFtz_P5O3QESBDG_PH4/s512/icon10a.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .app-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        .review-count {
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .download-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+            display: none;
+        }
+        .progress {
+            height: 24px;
+            width: 0;
+            background-color: #4CAF50;
+            text-align: center;
+            color: white;
+            line-height: 24px;
+            border-radius: 5px;
+        }
+        .app-description {
+            margin-top: 20px;
+        }
+        .app-info {
+            margin-top: 30px;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .app-info ul {
+            list-style: none;
+            padding: 0;
+        }
+        .app-info li {
+            padding: 5px 0;
+        }
+        .rate-app {
+            margin-top: 20px;
+        }
+        .stars {
+            display: flex;
+        }
+        .stars span {
+            font-size: 30px;
+            color: #888;
+            cursor: pointer;
+        }
+        .stars span.active {
+            color: gold;
+        }
+        .developer-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+        .download-Timer-btn {
+            outline: none;
+            border: none;
+            color: #fff;
+            display: flex;
+            cursor: pointer;
+            padding: 16px 25px;
+            border-radius: 6px;
+            align-items: center;
+            white-space: nowrap;
+            background: #4A98F7;
+            transition: all 0.2s ease;
+        }
+        .download-Timer-btn:hover {
+            background: #262d3d;
+        }
+        .download-Timer-btn.timer {
+            color: #000;
+            background: none;
+            transition: none;
+            font-size: 1.6rem;
+            pointer-events: none;
+        }
+        .download-Timer-btn.timer b {
+            color: #4A98F7;
+            padding: 0 8px;
+        }
+        .download-Timer-btn .icon {
+            font-size: 2rem;
+        }
+        .download-Timer-btn .text {
+            font-size: 1.5rem;
+            padding-left: 10px;
+        }
+        .download-Timer-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: #ffffff;
+        }
+
+        /* Responsive text size for smaller screens */
+        @media (max-width: 600px) {
+            .download-Timer-btn.timer {
+                font-size: 1.0rem;
+                color: green;/* Reduce font size for smaller screens */
+            }
+            .download-Timer-btn.timer b {
+                font-size: 1.0rem; /* Reduce bold text size */
+            }
+        }
+        
+        
+        
+        
+        
+        .review-count {
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .rating-count {
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        .stars {
+            display: flex;
+            margin-top: 10px;
+        }
+        .stars span {
+            font-size: 30px;
+            color: #888;
+            cursor: pointer;
+        }
+        .stars span.active {
+            color: gold;
+        }
+        .submit-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="app-header">
+        <div class="app-icon"></div>
+        <div>
+            <div class="app-title">BimalSirG YouTube App</div>
+            <div class="review-count">4.5 ★ | 1001 Reviews</div>
+            <div id="downloadCount">Downloads: <span id="totalDownloadsHeader">10</span></div>
+            <div class="rating-count">Total Rating: <span id="totalStars">100</span></div>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <button class="download-Timer-btn" data-timer="5">
+        <span class="text">Download Now</span>
+    </button>
+
+    <div class="app-description">
+        <h3>Description</h3>
+        <p>"BimalSirG YouTube Class 9,10" offers interactive alphabet practice for kids and comprehensive math solutions for Class 9 and 10 students, making learning fun and effective for all ages.</p>
+    </div>
+
+    <div class="app-info">
+        <h3>App Information</h3>
+        <ul>
+            <li>Version: 1.0.1</li>
+            <li>Size: 14MB</li>
+            <li>Downloads: <span id="totalDownloadsInfo">10</span>+</li>
+            <li>Last Updated: September 2024</li>
+        </ul>
+    </div>
+
+    <div class="rate-app">
+        <h3>Rate this app</h3>
+        <div class="stars" id="starRating">
+            <span>&#9734;</span>
+            <span>&#9734;</span>
+            <span>&#9734;</span>
+            <span>&#9734;</span>
+            <span>&#9734;</span>
+        </div>
+        <button class="submit-btn" id="submitRating">Submit Rating</button>
+    </div>
+
+    <div class="developer-info">
+        <p>Developer: BimalSirG YouTube Channel</p>
+        <p>This Page is visited <span id="visit-count"></span> times.</p>
+    </div>
+  
+  <div class="separator" style="clear: both;"><a href="https://youtube.com/@bimalsirg" style="display: block; padding: 1em 0; text-align: center; "><img alt="" border="0" width="320" data-original-height="512" data-original-width="512" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirhqB9wybzzQYj097ELYQShPBMAg-dOTMbI3Jyep7H90VxoNf7K5CvCsJf8_jczd7rI1PQKTLo2qQclBgbV3kFB6gXInmv4h9GN0msG2zBBoXVDwcE44Hc0z_qFsKfrM7gH_qG6VZKz2U554qFpvxFv6MTRdafMyytQ1kIC78K3qrFR0ZeqbkqPS0uG5U/s320/icon10a.png"/></a></div>
+  
+</div>
+
+<script type="module">
+  // Import the functions from Firebase SDK
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+  import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAG_x45DyqEQVfDzJLQyhUd1HTd1eetr48",
+    authDomain: "bimalsirgviewscounter.firebaseapp.com",
+    databaseURL: "https://bimalsirgviewscounter-default-rtdb.firebaseio.com",
+    projectId: "bimalsirgviewscounter",
+    storageBucket: "bimalsirgviewscounter.appspot.com",
+    messagingSenderId: "65233676385",
+    appId: "1:65233676385:web:0fae8ada76f1cadc4d2220",
+    measurementId: "G-962TWTEGCZ"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+
+  const downloadBtn = document.querySelector(".download-Timer-btn");
+  const fileLink = "https://drive.google.com/u/0/uc?id=1LijemGJuwkOC2dXpSpJxJ86UvdHZkhmX&export=download";
+
+  // Update download count in Firebase
+  const updateDownloadCount = () => {
+    const downloadRef = ref(database, 'counters/downloads');
+    get(downloadRef).then((snapshot) => {
+      let currentCount = snapshot.val() || 10;
+      const newCount = currentCount + 1;
+      set(downloadRef, newCount);
+      document.getElementById("totalDownloadsHeader").innerText = newCount;
+      document.getElementById("totalDownloadsInfo").innerText = newCount;
+    });
+  };
+
+  // Load initial download count from Firebase on page load
+  window.onload = () => {
+    const downloadRef = ref(database, 'counters/downloads');
+    onValue(downloadRef, (snapshot) => {
+      const storedDownloadCount = snapshot.val() || 10;
+      document.getElementById("totalDownloadsHeader").innerText = storedDownloadCount;
+      document.getElementById("totalDownloadsInfo").innerText = storedDownloadCount;
+    });
+
+    // Load initial visit count
+    const visitRef = ref(database, 'counters/visits');
+    get(visitRef).then((snapshot) => {
+      let visitCount = snapshot.val() || 0;
+      visitCount++;
+      set(visitRef, visitCount);
+      document.getElementById('visit-count').textContent = visitCount;
+    });
+
+    // Load initial star count
+    const starsRef = ref(database, 'counters/stars');
+    get(starsRef).then((snapshot) => {
+      let totalStars = snapshot.val() || 100;
+      document.getElementById('totalStars').innerText = totalStars;
+    });
+  };
+
+  const initTimer = () => {
+    if (downloadBtn.classList.contains("disable-timer")) {
+      return location.href = fileLink;
+    }
+    let timer = downloadBtn.dataset.timer;
+    downloadBtn.classList.add("timer");
+    downloadBtn.innerHTML = `Your download will begin in <b>${timer}</b> seconds`;
+
+    const initCounter = setInterval(() => {
+      if (timer > 0) {
+        timer--;
+        return downloadBtn.innerHTML = `Your download will begin in <b>${timer}</b> seconds`;
+      }
+      clearInterval(initCounter);
+      location.href = fileLink;
+      downloadBtn.innerText = "Your file is downloading...";
+      updateDownloadCount();
+      setTimeout(() => {
+        downloadBtn.classList.replace("timer", "disable-timer");
+        downloadBtn.innerHTML = `<span class="text">Wait 5 Seconds</span>`;
+      }, 3000);
+    }, 1000);
+  };
+
+  downloadBtn.addEventListener("click", initTimer);
+
+  // Star rating functionality
+  var stars = document.querySelectorAll('#starRating span');
+  var selectedStars = 0;
+  const starsRef = ref(database, 'counters/stars');
+
+  stars.forEach(function(star, index) {
+    star.addEventListener('click', function() {
+      resetStars();
+      highlightStars(index);
+      selectedStars = index + 1; // Store the number of selected stars
+    });
+  });
+
+  function resetStars() {
+    stars.forEach(function(star) {
+      star.classList.remove('active');
+    });
+  }
+
+  function highlightStars(index) {
+    for (var i = 0; i <= index; i++) {
+      stars[i].classList.add('active');
+    }
+  }
+
+  // Submit button functionality
+  const submitBtn = document.getElementById('submitRating');
+  submitBtn.addEventListener('click', function() {
+    if (selectedStars > 0) {
+      // Update total star count in Firebase
+      get(starsRef).then((snapshot) => {
+        let totalStars = snapshot.val() || 100;
+        totalStars += selectedStars;
+        set(starsRef, totalStars);
+        document.getElementById('totalStars').innerText = totalStars;
+
+        // Reset stars for a new selection
+        resetStars();
+        selectedStars = 0;
+      });
+    } else {
+      alert("Please select a star rating before submitting.");
+    }
+  });
+</script>
+
+</body>
+</html>
