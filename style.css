@@ -1,0 +1,183 @@
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .app-container {
+            width: 100%;
+            margin: 10px auto;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .app-header {
+            display: flex;
+            align-items: center;
+        }
+        .app-icon {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-image: url('image_hidden_css_js/icon10a.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .app-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        .review-count {
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .download-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+            display: none;
+        }
+        .progress {
+            height: 24px;
+            width: 0;
+            background-color: #4CAF50;
+            text-align: center;
+            color: white;
+            line-height: 24px;
+            border-radius: 5px;
+        }
+        .app-description {
+            margin-top: 20px;
+        }
+        .app-info {
+            margin-top: 30px;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .app-info ul {
+            list-style: none;
+            padding: 0;
+        }
+        .app-info li {
+            padding: 5px 0;
+        }
+        .rate-app {
+            margin-top: 20px;
+        }
+        .stars {
+            display: flex;
+        }
+        .stars span {
+            font-size: 30px;
+            color: #888;
+            cursor: pointer;
+        }
+        .stars span.active {
+            color: gold;
+        }
+        .developer-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+        .download-Timer-btn {
+            outline: none;
+            border: none;
+            color: #fff;
+            display: flex;
+            cursor: pointer;
+            padding: 16px 25px;
+            border-radius: 6px;
+            align-items: center;
+            white-space: nowrap;
+            background: #4A98F7;
+            transition: all 0.2s ease;
+        }
+        .download-Timer-btn:hover {
+            background: #262d3d;
+        }
+        .download-Timer-btn.timer {
+            color: #000;
+            background: none;
+            transition: none;
+            font-size: 1.6rem;
+            pointer-events: none;
+        }
+        .download-Timer-btn.timer b {
+            color: #4A98F7;
+            padding: 0 8px;
+        }
+        .download-Timer-btn .icon {
+            font-size: 2rem;
+        }
+        .download-Timer-btn .text {
+            font-size: 1.5rem;
+            padding-left: 10px;
+        }
+        .download-Timer-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: #ffffff;
+        }
+
+        /* Responsive text size for smaller screens */
+        @media (max-width: 600px) {
+            .download-Timer-btn.timer {
+                font-size: 1.0rem;
+                color: green;/* Reduce font size for smaller screens */
+            }
+            .download-Timer-btn.timer b {
+                font-size: 1.0rem; /* Reduce bold text size */
+            }
+        }
+        
+        
+        
+        
+        
+        .review-count {
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .rating-count {
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        .stars {
+            display: flex;
+            margin-top: 10px;
+        }
+        .stars span {
+            font-size: 30px;
+            color: #888;
+            cursor: pointer;
+        }
+        .stars span.active {
+            color: gold;
+        }
+        .submit-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
