@@ -1,0 +1,207 @@
+@charset "UTF-8";
+
+/* Author: Bimal Sir G YouTube Channel*/
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css");
+
+.cal-btn {
+  text-decoration: none;
+  font-family: ".LucidaGrandeUI", "Lucida Grande", "Lucida sans unicode";
+  color: red;
+  font-size: 1em;
+  padding: 0.2em 0.7em;
+  border: 1px solid orange;
+  margin: 2px 2px;
+  display: inline-block;
+  background-image: -webkit-linear-gradient(#ffffff 0%, #F6F6F6 30%, #F3F3F3 45%, #EDEDED 60%, #eeeeee 100%);
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 1px #acacac;
+          box-shadow: 0px 0px 1px #acacac;
+  user-select: none;
+}
+
+.cal-btn:hover,
+.cal-btn:active {
+  border-color: green;
+  background-image: -webkit-linear-gradient(#dbdbdb 0%, #d1d1d1 30%, #cfcece 45%, #b9b9b9 60%, #b4b4b4 100%);
+  -webkit-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.65);
+          box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.65);
+}
+
+.cal-btn.disabled {
+  color: yellow !important;
+  background-image: -webkit-linear-gradient(#fbf8f8 0%, #f0f0f0 30%, #e3e3e3 45%, #d7d7d7 60%, #cbc9c9 100%);
+}
+
+.inactive {
+  color: #999 !important;
+  background-color: #f0ecf0 !important;
+  user-select: none;
+  cursor: default;
+}
+
+.today {
+  background: yellow !important;
+  border: 1px solid purple;
+}
+
+.calendar-container {
+  margin: 0px;
+  min-height: 250px;
+  min-width: 250px;
+  max-width: 700px;
+  max-height: 700px;
+  color: pink;
+  font-family: 'Helvetica Neue', 'Lucida Grande', Arial, sans-serif;
+  display: grid;
+  grid-template-rows: 3.6em 1fr 2em;
+  background-color: white;
+  overflow: hidden;
+  border: 1px solid purple;
+  /* Removed outer border */
+  
+  padding: 0px;
+}
+
+.calendar-container .calendar-head {
+  display: grid;
+  grid-template-rows: 1.3em 2.3em;
+  text-align: center;
+  color: pink;
+  width: 100%;
+  padding: 0 0.5em;
+}
+
+.calendar-container .calendar-head .calendar-title {
+  user-select: none;
+  cursor: default;
+  line-height: 1.3em;
+  background: linear-gradient(top, #ebebeb, #d5d5d5);
+  border-top: 1px solid white;
+  border-bottom: 1px solid orange;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  /* Allow text to wrap to two lines */
+  white-space: normal;
+  color: red;
+}
+
+.calendar-container .calendar-head .cal-nav {
+  border-bottom: 1px solid white;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  padding: 0.1em;
+  color: green;
+  padding-right: 20px;
+}
+
+.calendar-container .calendar-body {
+  display: grid;
+  grid-template-rows: 2em 1fr;
+  gap: 0.1em;
+  padding-top: 2.5em;
+}
+
+.calendar-container .calendar-body .week {
+  background: -webkit-linear-gradient(#ffffff 0%, #F6F6F6 30%, #F3F3F3 45%, #EDEDED 60%, #eeeeee 100%);
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  place-items: stretch;
+  border-bottom: 1px solid #b1aeb1;
+  
+}
+
+.calendar-container .calendar-body .week .days-name {
+  display: grid;
+  place-content: center;
+  text-transform: uppercase;
+  font-weight: 1.1em;
+  color: brown;
+}
+
+.calendar-container .calendar-body .days {
+  display: grid;
+  gap: 0.1em;
+  grid-template: repeat(6, 1fr) / repeat(7, 1fr);
+  place-content: stretch;
+  color: purple; 
+}
+
+.calendar-container .calendar-body .days .day {
+  padding: clamp(0.01, 0.2vw, 0.3em);
+  background: #e4e2e4;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: background-color 250ms;
+  color: blue;
+}
+
+.calendar-container .calendar-body .days .day .np-date {
+  font-size: clamp(1.1em, 3.5vw, 1.7em);
+  font-weight: 700;
+}
+
+.calendar-container .calendar-body .days .day .int-date {
+  font-size: clamp(0.5em, 1.3vw, 0.8em);
+}
+
+.calendar-container .calendar-body .days .day .task {
+  font-size: clamp(0.5em, 1.3vw, 0.8em);
+  color: purple;
+}
+
+.calendar-container .calendar-footer {
+  border-top: 1px solid green;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  padding: 0.5em;
+  background-color: #f3f3f3;
+  font-size: 0.8em;
+  color: green;
+}
+
+.calendar-container .calendar-footer .cal-foot-right .cal-copy {
+  font-style: italic;
+  color: pink;
+  font-weight: 700;
+}
+
+.calendar-container .calendar-footer .cal-foot-right .cal-copy a {
+  text-decoration: none;
+  color: orange;
+  font-style: bold;
+  font-weight: 700;
+  /* Ensure the footer text is always visible */
+  display: block;
+  text-align: right;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .calendar-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .calendar-container .calendar-head .calendar-title {
+    font-size: 1em;
+    color: orange;
+    line-height: 1.2em;
+    white-space: normal; /* Allow title to wrap into two lines */
+  }
+
+  .calendar-container .calendar-footer .cal-foot-right .cal-copy {
+    font-size: 0.9em;
+    
+  }
+}
+
+.cal-btn {
+    position: relative;
+    z-index: 1;                /* Ensure buttons are above other elements */
+}
+
+
+
+.calendar-container .calendar-body .days .day:nth-child(7n){color:rgba(211,32,32,.753)}
