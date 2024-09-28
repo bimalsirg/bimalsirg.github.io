@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepali Calendar in BimalSirG YouTube Channel</title>
+  
+
+</head>
+
+<body onload=updateClock();>
+    
+    
+
+    <div class="container">
+        <h4 class="title-header" style="color: purple; font-weight: bold; text-align: center;">Nepali calendar by BimalSirG Youtube Channel <span class="selected"></span></h4>
+          
+    <div id="TIME_IN_ENGLISH" style="color: red; font-size: 2 em; font-weight: bold; text-align: center;"></div>
+    
+  
+    
+<nepali-calendar
+            style="https://bimalsirg.github.io/patro_src/nepali-calendar-1.0.0.css"
+            lang="nep">
+            <div slot="title">
+                <strong>२०००-२०९९</strong>
+                <small>BimalSirG YouTube नेपाली पात्रो</small>
+            </div>
+        </nepali-calendar>
+    </div>
+    
+    <script src="https://bimalsirg.github.io/patro_src/nepali_date_time_offline.js"></script>
+    
+    <script src="https://bimalsirg.github.io/patro_src/nepali-calendar-web-component.js">
+    </script>
+    <script>
+        let dis = document.querySelector('.selected');
+        const arrayOfWeekdays = ["Sun", "Mon", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        let calendar = document.querySelector("nepali-calendar");
+        calendar.addEventListener('select', ({
+            detail
+        }) => {
+            dis.innerHTML = arrayOfWeekdays[detail.day - 1] + " " + detail.np + " BS & " + detail.int + " AD ";
+        });
+        
+        
+        
+            
+</body>
+
+
+
+</html>
