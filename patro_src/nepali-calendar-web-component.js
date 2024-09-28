@@ -450,12 +450,10 @@ npCalTemplate.innerHTML = `
                 <div class="cal-nav">
                     <div class="cal-head-left">
                         <div class="cal-btn cal-prev-year" style="text-align: center;"> 
-                        <small>☜☜</small><br>
-        <span style="font-size: 10px;">Prev Year</span>
+                        <small>☜☜</small><br><span style="font-size: 10px;">Prev Year</span>
                         </div><br>
                         <div class="cal-btn cal-prev" style="text-align: center;"> 
-                        <small>☚</small><br>
-        <span style="font-size: 10px;">Prev Month</span>
+                        <small>☚</small><br><span style="font-size: 10px;">Prev Month</span>
                         </div>
                     </div>
                     <div class="cal-head-center">
@@ -468,13 +466,11 @@ npCalTemplate.innerHTML = `
                     <div class="cal-head-right">
                     
                         <div class="cal-btn cal-next-year" style="text-align: center;">
-        <small>☞☞</small><br>
-        <span style="font-size: 10px;">Next Year</span>
+        <small>☞☞</small><br><span style="font-size: 10px;">Next Year</span>
     </div><br>
     
     <div class="cal-btn cal-next" style="text-align: center;">
-        <small>☛</small><br>
-        <span style="font-size: 10px;">Next Month</span>
+        <small>☛</small><br><span style="font-size: 10px;">Next Month</span>
     </div>
                         
                     </div>
