@@ -99,7 +99,7 @@
   display: grid;
   grid-template-rows: 2em 1fr;
   gap: 0.1em;
-  padding-top: 4.8em;
+  padding-top: 5.8em;
 }
 
 .calendar-container .calendar-body .week {
